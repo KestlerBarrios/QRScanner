@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MapsPage extends StatelessWidget {
+class UrlsPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.brown,
+      color: Colors.green,
     );
   }
 }

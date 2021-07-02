@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MapsPage extends StatelessWidget {
+class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.brown,
+    return Center(
+      child: Text('Mapas Page'),
     );
   }
 }
