@@ -25,12 +25,12 @@ class DBProvider {
     //Path de donde almacenamos la base de datos
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'ScansDB.db');
+    //TODO: Mosstrar el path de la DB
     print(path);
 
     return await openDatabase(
       path,
       version: 1,
-      onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute('''
               CREATE TABLE Scans(
@@ -60,7 +60,8 @@ class DBProvider {
   Future<int> nuevoScan(ScanModel nuevoScan) async {
     final db = await database;
     final res = await db.insert('Scans', nuevoScan.toJson());
-    print(res);
+    //TODO: Imprime el id de la insercion
+    print('id: $res');
     return res;
   }
 
@@ -92,6 +93,20 @@ class DBProvider {
     final res = await db.update('Scans', nuevoScan.toJson(),
         where: 'id = ?', whereArgs: [nuevoScan.id]);
 
+    return res;
+  }
+
+  Future<int> deleteScanById(int id) async {
+    final db = await database;
+    final res = await db.delete('Scans', where: 'id= ?', whereArgs: [id]);
+    return res;
+  }
+
+  Future<int> deleteScans() async {
+    final db = await database;
+    final res = await db.rawDelete('''
+        DELETE FROM Scans
+    ''');
     return res;
   }
 }

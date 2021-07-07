@@ -19,7 +19,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: () {},
+            onPressed: () {
+              DBProvider.db.deleteScans();
+              AlertDialog();
+            },
           )
         ],
       ),
@@ -37,8 +40,16 @@ class _BodyContent extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
 
     //TODO: Temporal
-    // DBProvider.db.nuevoScan(ScanModel(valor: 'http://google.com'));
-    DBProvider.db.getScanById(1).then((scan) => print(scan.valor));
+
+    // final tempScan = ScanModel(valor: 'http://guatemaladigital.com');
+    //Ingresar Datos
+    // DBProvider.db.nuevoScan(tempScan);
+    //Obtener Dato por Id
+    // DBProvider.db.getScanById(8).then((scan) => print(scan.valor));
+    //Obtener todos los scans
+    // DBProvider.db.getScans().then(print)
+    // Borrar todos los registros de la DB
+    DBProvider.db.deleteScans().then(print);
 
     switch (uiProvider.selectedMenuOpt) {
       case 0:
