@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_scanner/src/pages/maps_page.dart';
 import 'package:qr_scanner/src/pages/urls_page.dart';
 
-import 'package:qr_scanner/src/providers/db_provider.dart';
+import 'package:qr_scanner/src/providers/scan_list_provider.dart';
 import 'package:qr_scanner/src/providers/ui_provider.dart';
 
 import 'package:qr_scanner/src/widgets/custom_navigationbar.dart';
@@ -20,8 +20,20 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete_forever),
             onPressed: () {
-              DBProvider.db.deleteScans();
-              AlertDialog();
+              Provider.of<ScanListProvider>(context, listen: false)
+                  .borrarScans();
+              showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    title: Text(
+                      'Se borraron todos los registros',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    content: Image(
+                        height: 50,
+                        width: 50,
+                        image: AssetImage('assets/img/check.png')),
+                  ));
             },
           )
         ],
@@ -37,10 +49,7 @@ class HomePage extends StatelessWidget {
 class _BodyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
-
     //TODO: Temporal
-
     // final tempScan = ScanModel(valor: 'http://guatemaladigital.com');
     //Ingresar Datos
     // DBProvider.db.nuevoScan(tempScan);
@@ -49,10 +58,15 @@ class _BodyContent extends StatelessWidget {
     //Obtener todos los scans
     // DBProvider.db.getScans().then(print)
     // Borrar todos los registros de la DB
-    DBProvider.db.deleteScans().then(print);
+    // DBProvider.db.deleteScans().then(print);
+
+    final uiProvider = Provider.of<UiProvider>(context);
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
 
     switch (uiProvider.selectedMenuOpt) {
       case 0:
+        // scanListProvider.cargarScansPorTipo('geo');
         return MapsPage();
       case 1:
         return UrlsPage();
