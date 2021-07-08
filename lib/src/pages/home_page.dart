@@ -49,16 +49,6 @@ class HomePage extends StatelessWidget {
 class _BodyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //TODO: Temporal
-    // final tempScan = ScanModel(valor: 'http://guatemaladigital.com');
-    //Ingresar Datos
-    // DBProvider.db.nuevoScan(tempScan);
-    //Obtener Dato por Id
-    // DBProvider.db.getScanById(8).then((scan) => print(scan.valor));
-    //Obtener todos los scans
-    // DBProvider.db.getScans().then(print)
-    // Borrar todos los registros de la DB
-    // DBProvider.db.deleteScans().then(print);
 
     final uiProvider = Provider.of<UiProvider>(context);
     final scanListProvider =
@@ -66,9 +56,10 @@ class _BodyContent extends StatelessWidget {
 
     switch (uiProvider.selectedMenuOpt) {
       case 0:
-        // scanListProvider.cargarScansPorTipo('geo');
+        scanListProvider.cargarScansPorTipo('geo');
         return MapsPage();
       case 1:
+        scanListProvider.cargarScansPorTipo('http');
         return UrlsPage();
         break;
       default:

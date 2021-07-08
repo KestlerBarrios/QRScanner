@@ -25,9 +25,6 @@ class DBProvider {
     //Path de donde almacenamos la base de datos
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'ScansDB.db');
-    //TODO: Mosstrar el path de la DB
-    print(path);
-
     return await openDatabase(
       path,
       version: 1,
@@ -60,8 +57,7 @@ class DBProvider {
   Future<int> nuevoScan(ScanModel nuevoScan) async {
     final db = await database;
     final res = await db.insert('Scans', nuevoScan.toJson());
-    //TODO: Imprime el id de la insercion
-    print('id: $res');
+    
     return res;
   }
 
